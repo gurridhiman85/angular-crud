@@ -1,0 +1,36 @@
+<h1>Product Management System</h1>
+<form #f = "ngForm">
+<label>Name</label>
+<input type="text" name="name" [(ngModel)] = "selectedProduct.name">
+<br>
+<label>Amount</label>
+<input type="text" name="price" [(ngModel)] = "selectedProduct.price">
+<br>
+<input type="button" (click)="createOrUpdateProduct(f)" value="Create or Update Product">
+</form>
+<br/>
+<form>
+  <br/>
+  <!-- Here we assign value to searchText and this will be used in Filter. -->
+  <!-- We have implemented two-day binding to bind searchText -->
+  Search Text <input type="text" [(ngModel)]="searchText" name="searchText">
+  </form>
+<br/>
+<div>
+<table class="table table-striped table-bordered">
+<tr>
+<th (click)="sort('id')">ID</th>
+<th (click)="sort('name')">Product Name</th>
+<th (click)="sort('price')">Product Price</th>
+<th>Operations</th>
+</tr>
+<tr *ngFor="let product of products | orderBy:sortColumn:reverse | filter:searchText">
+<td>{{ product.id }}</td>
+<td>{{ product.name }}</td>
+<td>{{ product.price }}</td>
+<td>
+<button (click)="selectProduct(product)">Edit</button>
+<button id="del" (click)="deleteProduct(product.id)">Delete</button>
+</td>
+</tr>
+</table>
